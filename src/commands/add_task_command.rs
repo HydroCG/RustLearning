@@ -1,12 +1,14 @@
-use crate::command::Command;
+use crate::commands::command::Command;
 use crate::task_list::TaskList;
 
 pub struct AddTaskCommand {
 }
 
 impl Command for AddTaskCommand {
-    fn execute(&self, task_list: &mut TaskList, args: &str) {
+    fn execute(&self, task_list: &mut TaskList, args: &str) -> Result<bool, &str> {
         task_list.add_task(&args);
+
+        return Ok(true);
     }
 
     fn get_name(&self) -> &str {

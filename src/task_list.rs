@@ -9,5 +9,10 @@ impl TaskList {
         println!("Adding task: {}", task);
         self.tasks.push(task.to_string());
     }
+
+    pub fn remove_task(&mut self, task_index: usize) {
+        self.tasks.remove(task_index);
+    }
+
 }
 
