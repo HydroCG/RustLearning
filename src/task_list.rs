@@ -19,5 +19,9 @@ impl TaskList {
         self.tasks.remove(task_index);
         return Ok(true);
     }
+
+    pub fn clear(&mut self) {
+        self.tasks.clear();
+    }
 }
 

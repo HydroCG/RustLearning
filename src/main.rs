@@ -49,12 +49,14 @@ fn main() {
         Box::new(SaveCommand{}),
     ];
 
+    println!("Loaded {} tasks", task_list.tasks.len());
+    task_list.clear(); // Clear because we're loading more commands
+
     interpret_command(&mut task_list, &commands, "add_task buy eggs");
     interpret_command(&mut task_list, &commands, "add_task buy milk");
     interpret_command(&mut task_list, &commands, "add_task sell cheese");
     interpret_command(&mut task_list, &commands, "list_tasks");
     interpret_command(&mut task_list, &commands, "remove_task 5");
-    interpret_command(&mut task_list, &commands, "list_tasks");
     interpret_command(&mut task_list, &commands, "save");
 
     println!("Finished app exe");
