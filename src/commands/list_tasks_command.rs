@@ -6,7 +6,7 @@ pub struct ListTaskCommand {
 }
 
 impl Command for ListTaskCommand {
-    fn execute(&self, task_list: &mut TaskList, _args: &str) -> Result<bool, &str> {
+    fn execute(&self, task_list: &mut TaskList, _args: &str) -> Result<bool, String> {
         println!("Listing commands:");
         let mut idx = 0;
 

@@ -5,7 +5,7 @@ pub struct AddTaskCommand {
 }
 
 impl Command for AddTaskCommand {
-    fn execute(&self, task_list: &mut TaskList, args: &str) -> Result<bool, &str> {
+    fn execute(&self, task_list: &mut TaskList, args: &str) -> Result<bool, String> {
         task_list.add_task(&args);
 
         return Ok(true);

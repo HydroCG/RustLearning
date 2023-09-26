@@ -14,7 +14,7 @@ impl FileAdapter {
         }
     }
 
-    pub fn save_file(&self, task_list: &mut TaskList) -> Result<bool, &str> {
+    pub fn save_file(&self, task_list: &TaskList) -> Result<bool, String> {
         let mut contents = String::new();
 
         for task in &task_list.tasks {
@@ -27,14 +27,14 @@ impl FileAdapter {
                 Ok(true)
             },
             Err(str) => {
-                Err("Unable to write file to at the specified path")
+                Err(String::from("Unable to write file to at the specified path"))
             }
         }
     }
 
     pub fn load_file(&self) -> Result<TaskList, String> {
 
-        let mut taskList = TaskList { tasks: Vec::new() };
+        let mut task_list = TaskList { tasks: Vec::new() };
 
         match std::fs::read_to_string(&self.file_path) {
             Ok(contents) => {
@@ -42,7 +42,7 @@ impl FileAdapter {
                 let lines = contents.lines();
 
                 for line in lines {
-                    taskList.add_task(line);
+                    task_list.add_task(line);
                 }
             },
             Err(str) => {
@@ -50,6 +50,6 @@ impl FileAdapter {
             }
         }
 
-        return Ok(taskList);
+        return Ok(task_list);
     }
 }
