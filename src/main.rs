@@ -1,14 +1,21 @@
 use crate::task_list::TaskList;
-use crate::commands::add_task_command::AddTaskCommand;
 use crate::commands::command::Command;
+use crate::commands::add_task_command::AddTaskCommand;
 use crate::commands::list_tasks_command::ListTaskCommand;
 use crate::commands::remove_task_command::RemoveTaskCommand;
+use crate::commands::save_command::SaveCommand;
+use crate::storage_adapters::file_adapter::FileAdapter;
 
 pub mod commands {
     pub mod command;
     pub mod add_task_command;
     pub mod list_tasks_command;
     pub mod remove_task_command;
+    pub mod save_command;
+}
+
+pub mod storage_adapters {
+    pub mod file_adapter;
 }
 
 mod task_list;
@@ -32,12 +39,14 @@ fn interpret_command(task_list: &mut TaskList, commands: &Vec<Box<dyn Command>>,
 
 fn main() {
 
-    let mut task_list = TaskList{ tasks: vec![] };
+    let file_loader = FileAdapter::new("B:\\source\\repos\\rust\\ToDoList\\test.dat");
+    let mut task_list = file_loader.load_file().unwrap();
 
     let commands: Vec<Box<dyn Command>> = vec![
         Box::new(AddTaskCommand{}),
         Box::new(ListTaskCommand{}),
         Box::new(RemoveTaskCommand{}),
+        Box::new(SaveCommand{}),
     ];
 
     interpret_command(&mut task_list, &commands, "add_task buy eggs");
@@ -46,7 +55,7 @@ fn main() {
     interpret_command(&mut task_list, &commands, "list_tasks");
     interpret_command(&mut task_list, &commands, "remove_task 5");
     interpret_command(&mut task_list, &commands, "list_tasks");
-    interpret_command(&mut task_list, &commands, "piss");
+    interpret_command(&mut task_list, &commands, "save");
 
     println!("Finished app exe");
 }

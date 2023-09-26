@@ -12,10 +12,6 @@ impl Command for RemoveTaskCommand {
 
         let index = args.parse::<usize>().unwrap();
 
-        if index > task_list.tasks.len() {
-            return Err("Task index out of bounds");
-        }
-
         task_list.remove_task(index-1);
 
         return Ok(true);

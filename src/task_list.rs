@@ -10,9 +10,14 @@ impl TaskList {
         self.tasks.push(task.to_string());
     }
 
-    pub fn remove_task(&mut self, task_index: usize) {
-        self.tasks.remove(task_index);
-    }
+    pub fn remove_task(&mut self, task_index: usize) -> Result<bool, &str> {
 
+        if task_index > self.tasks.len() {
+            return Err("Task index out of bounds");
+        }
+
+        self.tasks.remove(task_index);
+        return Ok(true);
+    }
 }
 
